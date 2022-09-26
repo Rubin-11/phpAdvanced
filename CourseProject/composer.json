@@ -1,0 +1,17 @@
+{
+    "name": "course_project/level_two",
+    "autoload": {
+        "psr-4": {
+            "CourseProject\\LevelTwo\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Sergey Misharin",
+            "email": "misharin_sergey-work@mail.ru"
+        }
+    ],
+    "require": {
+        "fakerphp/faker": "^1.20"
+    }
+}
