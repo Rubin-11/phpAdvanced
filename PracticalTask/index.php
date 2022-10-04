@@ -1,31 +1,41 @@
 <?php
 
-//require_once __DIR__ . '/vendor/autoload.php';
+use MongoDB\Driver\Exception\CommandException;
+use Rubin\LevelTwo\Blog\Commands\Arguments;
+use Rubin\LevelTwo\Blog\Commands\CreateUserCommand;
+use Rubin\LevelTwo\Blog\Repository\UsersRepository\SqliteUsersRepository;
+//use Rubin\LevelTwo\Blog\Repositories\UserRepository\InMemoryUsersRepository;
 
-use src\Blog_Post\Class_Post;
-use src\Person\Name;
-use src\Person\Person;
 
-spl_autoload_register(function (string $class) {
-//    var_dump($class);
-//    die();
-    $pathArray = explode('\\', $class);
-//    var_dump($pathArray);
-//    die();
-    $className = str_replace('_', DIRECTORY_SEPARATOR, array_pop($pathArray));
-//    var_dump($className);
-//    die();
-    require_once sprintf('%s.php', implode(DIRECTORY_SEPARATOR, array_merge($pathArray, [$className])));
-//    var_dump($class);
-//    die();
-});
+require_once __DIR__ . '/vendor/autoload.php';
 
-$post = new Class_Post(
-    new Person(
-        new Name('Иван', 'Никитин'),
-        new DateTimeImmutable()
-    ),
-    'Всем привет!'
+//Создаем объект подключения к SQLite
+//$connection = new PDO('sqlite:' . __DIR__ . '/blog.sqlite');
+
+//Создаем объект SQLite репозитория
+$usersRepository = new SqliteUsersRepository(
+    new PDO('sqlite:' . __DIR__ . '/blog.sqlite')
 );
 
-print $post;
+// In-memory-репозиторий тоже подойдёт
+// $usersRepository = new InMemoryUsersRepository();
+// Команда зависит от контракта репозитория пользователей,
+// так что мы передаём объект класса,
+// реализующего этот контракт
+$command = new CreateUserCommand($usersRepository);
+
+try {
+    //"Заворачиваем" $argv в объект типа Arguments
+    $command->handle(Arguments::fromArgv($argv));
+}
+    // Так как мы добавили исключение ArgumentsException
+    // имеет смысл обрабатывать все исключения приложения,
+    // а не только исключение CommandException
+catch (CommandException $e) {
+    //Выводим сообщения об ошибках
+    echo "{$e->getMessage()}\n";
+}
+
+//Добавляем в репозиторий несколько пользователей
+//$usersRepository->save(new User(UUID::random(), new Name('Ivan', 'Ivanov')));
+//$usersRepository->save(new User(UUID::random(), new Name('Sergey', 'Misharin')));

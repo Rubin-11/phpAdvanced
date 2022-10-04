@@ -4,6 +4,7 @@ namespace CourseProject\LevelTwo\Repositories\CommentRepository;
 
 use CourseProject\LevelTwo\Comment;
 use CourseProject\LevelTwo\Exceptions\CommentNotFoundException;
+use CourseProject\LevelTwo\UUID;
 
 class CommentRepository implements CommentRepositoryInterface
 {
@@ -18,10 +19,10 @@ class CommentRepository implements CommentRepositoryInterface
     /**
      * @throws CommentNotFoundException
      */
-    public function get(int $id):Comment
+    public function get(UUID $idComment):Comment
     {
         foreach ($this->comments as $comment) {
-            if($comment->getId() === $id) {
+            if($comment->getId() === $idComment) {
                 return $comment;
             }
         }

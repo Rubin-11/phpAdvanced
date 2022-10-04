@@ -2,10 +2,12 @@
 
 namespace CourseProject\LevelTwo\Repositories\UsersRepository;
 
-use CourseProject\LevelTwo\User;
+use CourseProject\LevelTwo\Blog\User\User;
+use CourseProject\LevelTwo\Common\UUID;
 
 interface UserRepositoryInterface
 {
-    public function save($user):void;
-    public function get(int $id): User;
+    public function save(User $user):void;
+    public function get(UUID $idUser): User;
+    public function getByUsername(string $username): User;
 }
