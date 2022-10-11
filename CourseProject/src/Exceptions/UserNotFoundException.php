@@ -6,5 +6,5 @@ use Exception;
 
 class UserNotFoundException extends Exception
 {
-    protected $message = 'User not found';
+//    protected $message = 'User not found';
 }

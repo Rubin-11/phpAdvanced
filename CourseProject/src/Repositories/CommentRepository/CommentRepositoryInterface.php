@@ -9,4 +9,6 @@ interface CommentRepositoryInterface
 {
     public function save(Comment $comment):void;
     public function get(UUID $idComment):Comment;
+    public function getByAuthor(UUID $idAuthor): Comment;
+    public function getByPost(UUID $idPost): Comment;
 }

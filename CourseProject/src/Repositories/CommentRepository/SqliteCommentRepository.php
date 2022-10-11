@@ -3,6 +3,7 @@
 namespace CourseProject\LevelTwo\Repositories\CommentRepository;
 
 use CourseProject\LevelTwo\Blog\Comment\Comment;
+use CourseProject\LevelTwo\Exceptions\CommentNotFoundException;
 use CourseProject\LevelTwo\Exceptions\InvalidArgumentException;
 use CourseProject\LevelTwo\Exceptions\UserNotFoundException;
 use CourseProject\LevelTwo\Common\UUID;
@@ -25,8 +26,8 @@ class SqliteCommentRepository implements CommentRepositoryInterface
 
         $statement->execute([
             ':id_comment' =>(string)$comment->getIdComment(),
-            ':post_id' =>$comment->getPostId(),
-            ':author_id'=>$comment->getAuthorId(),
+            ':post_id' =>(string)$comment->getPostId(),
+            ':author_id'=>(string)$comment->getAuthorId(),
             ':text'=> $comment->getText(),
         ]);
     }
@@ -50,7 +51,7 @@ class SqliteCommentRepository implements CommentRepositoryInterface
      * @throws InvalidArgumentException
      * @throws UserNotFoundException
      */
-    private function getByAuthor(UUID $id): Comment
+    public function getByAuthor(UUID $id): Comment
     {
         $statement = $this->connection->prepare(
             'SELECT * FROM comment WHERE author_id = :id_author'
@@ -65,7 +66,7 @@ class SqliteCommentRepository implements CommentRepositoryInterface
      * @throws InvalidArgumentException
      * @throws UserNotFoundException
      */
-    private function getByPost(UUID $id): Comment
+    public function getByPost(UUID $id): Comment
     {
         $statement = $this->connection->prepare(
             'SELECT * FROM comment WHERE post_id = :id_post'
@@ -77,14 +78,16 @@ class SqliteCommentRepository implements CommentRepositoryInterface
     }
 
     /**
-     * @throws UserNotFoundException
      * @throws InvalidArgumentException
+     * @throws CommentNotFoundException
      */
     private function getComment(PDOStatement $statement, string $id): Comment
     {
         $result = $statement->fetch(PDO::FETCH_ASSOC);
         if(false === $result) {
-            throw new UserNotFoundException();
+            throw new CommentNotFoundException(
+                "Cannot find comment: $id"
+            );
         }
         return new Comment(
             new UUID($result['id_comment']),

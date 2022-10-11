@@ -5,9 +5,25 @@ namespace CourseProject\LevelTwo\Common;
 class Name
 {
     public function __construct(
-        private readonly ?string $firstName,
-        private readonly ?string $lastName
+        private  ?string $firstName,
+        private  ?string $lastName
     ){}
+
+    /**
+     * @param string|null $firstName
+     */
+    public function setFirstName(?string $firstName): void
+    {
+        $this->firstName = $firstName;
+    }
+
+    /**
+     * @param string|null $lastName
+     */
+    public function setLastName(?string $lastName): void
+    {
+        $this->lastName = $lastName;
+    }
 
     /**
      * @return string|null

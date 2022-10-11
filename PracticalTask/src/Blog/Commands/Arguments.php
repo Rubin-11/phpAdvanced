@@ -3,7 +3,9 @@
 namespace Rubin\LevelTwo\Blog\Commands;
 //use MongoDB\Driver\Exception\ArgumentsExceptions;
 
-use MongoDB\Driver\Exception\CommandException;
+//use MongoDB\Driver\Exception\CommandException;
+
+use Rubin\LevelTwo\Blog\Exceptions\CommandException;
 
 final class Arguments
 {
@@ -43,7 +45,7 @@ final class Arguments
     {
         if(!array_key_exists($argument, $this->arguments)) {
             throw new CommandException(
-                "No such argument: $argument"
+                "User already exists: $argument"
             );
         }
         return $this->arguments[$argument];

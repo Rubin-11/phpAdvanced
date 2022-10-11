@@ -88,7 +88,7 @@ class SqliteUsersRepository implements UsersRepositoryInterface
         //Бросаем исключение, если пользоватеь не найден
         if (false === $result) {
             throw new UserNotFoundException(
-                "Cannot get user: $userName"
+                "Cannot find user: $userName"
             );
         }
 

@@ -3,7 +3,8 @@
 namespace Rubin\LevelTwo\Blog\Commands;
 
 //use MongoDB\Driver\Exception\CommandException;
-use MongoDB\Driver\Exception\CommandException;
+use Rubin\LevelTwo\Blog\Exceptions\CommandException;
+use Rubin\LevelTwo\Blog\Exceptions\InvalidArgumentException;
 use Rubin\LevelTwo\Blog\Name;
 use Rubin\LevelTwo\Blog\Exceptions\UserNotFoundException;
 use Rubin\LevelTwo\Blog\Repositories\UsersRepository\UsersRepositoryInterface;
@@ -18,6 +19,11 @@ class CreateUserCommand
         private readonly UsersRepositoryInterface $usersRepository
     ){}
     //Вместо массива принимаем объект типа Arguments
+
+    /**
+     * @throws InvalidArgumentException
+     * @throws CommandException
+     */
     public function handle(Arguments $arguments): void
     {
 //        $input = $this->parseRawInput($rawInput);
@@ -27,7 +33,7 @@ class CreateUserCommand
         //Проверяем, существует ли пользователь в репозитории
         if ($this->userExists($userNane)) {
             //Бросаем исключение, если пользователь уже существует
-//            throw new CommandException("User already exists: $userNane");
+            throw new CommandException("User already exists: $userNane");
         }
 
         //Сохраняем пользователя в репозиторий

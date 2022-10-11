@@ -5,11 +5,12 @@ namespace CourseProject\LevelTwo\Blog\User;
 use CourseProject\LevelTwo\Common\Arguments;
 use CourseProject\LevelTwo\Common\Name;
 use CourseProject\LevelTwo\Exceptions\ArgumentException;
+use CourseProject\LevelTwo\Exceptions\CommandException;
 use CourseProject\LevelTwo\Exceptions\InvalidArgumentException;
 use CourseProject\LevelTwo\Exceptions\UserNotFoundException;
 use CourseProject\LevelTwo\Repositories\UsersRepository\UserRepositoryInterface;
 use CourseProject\LevelTwo\Common\UUID;
-use MongoDB\Driver\Exception\CommandException;
+
 
 class CreateUserCommand
 {
@@ -20,6 +21,7 @@ class CreateUserCommand
     /**
      * @throws ArgumentException
      * @throws InvalidArgumentException
+     * @throws CommandException
      */
     public function handle(Arguments $arguments):void{
         $id = UUID::random();
