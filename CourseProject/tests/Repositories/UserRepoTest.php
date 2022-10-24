@@ -80,9 +80,9 @@ class UserRepoTest extends TestCase
 //        );
 //        $statementMock->method('fetch')->willReturn([
 //            'id_user'=>'123e4567-e89b-12d3-a456-426614174000',
-//            ':user_name'=>'ivan228',
 //            'first_name'=>'Ivan',
 //            'last_name'=> 'Nikitin',
+//            ':user_name'=>'ivan228',
 //        ]);
 //
 //        $sqlRepo=new SqliteUserRepository($connectionMock);
@@ -90,7 +90,7 @@ class UserRepoTest extends TestCase
 //        $user = new User(new UUID(
 //            '123e4567-e89b-12d3-a456-426614174000'),
 //            new Name('Ivan', 'Nikitin'),
-//            'ivan',
+//            'ivan228',
 //        );
 //
 //        $value = $sqlRepo->getByUserName('ivan228');

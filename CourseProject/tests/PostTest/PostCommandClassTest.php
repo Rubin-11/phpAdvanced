@@ -38,6 +38,11 @@ class PostCommandClassTest extends TestCase
             {
                 // TODO: Implement get() method.
             }
+
+            public function deliteById(UUID $id)
+            {
+                // TODO: Implement deliteById() method.
+            }
         };
     }
 

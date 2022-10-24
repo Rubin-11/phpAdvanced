@@ -1,7 +1,9 @@
 <?php
 
-use CourseProject\LevelTwo\Common\UUID;
+namespace CourseProject\LevelTwo\UnitTests;
+
 use CourseProject\LevelTwo\Exceptions\InvalidArgumentException;
+use CourseProject\LevelTwo\Common\UUID;
 use PHPUnit\Framework\TestCase;
 
 class UuidExceptionTest extends TestCase

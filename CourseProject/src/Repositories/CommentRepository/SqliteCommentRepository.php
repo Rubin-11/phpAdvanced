@@ -34,7 +34,7 @@ class SqliteCommentRepository implements CommentRepositoryInterface
 
     /**
      * @throws InvalidArgumentException
-     * @throws UserNotFoundException
+     * @throws CommentNotFoundException
      */
     public function get(UUID $idComment): Comment
     {
@@ -49,7 +49,7 @@ class SqliteCommentRepository implements CommentRepositoryInterface
 
     /**
      * @throws InvalidArgumentException
-     * @throws UserNotFoundException
+     * @throws CommentNotFoundException
      */
     public function getByAuthor(UUID $id): Comment
     {
@@ -64,7 +64,7 @@ class SqliteCommentRepository implements CommentRepositoryInterface
 
     /**
      * @throws InvalidArgumentException
-     * @throws UserNotFoundException
+     * @throws CommentNotFoundException
      */
     public function getByPost(UUID $id): Comment
     {

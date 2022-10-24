@@ -91,4 +91,9 @@ class SqlitePostRepository implements PostRepositoryInterface
             $result['text']
         );
     }
+
+    public function deliteById(UUID $id)
+    {
+        // TODO: Implement deliteById() method.
+    }
 }

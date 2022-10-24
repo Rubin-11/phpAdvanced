@@ -11,4 +11,5 @@ interface PostRepositoryInterface
     public function get(UUID $idPost):Post;
     public function getByTitle(string $title): Post;
     public function getByAuthor(UUID $id): Post;
+    public function deliteById(UUID $id);
 }

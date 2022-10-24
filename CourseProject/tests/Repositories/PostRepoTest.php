@@ -7,7 +7,7 @@ use CourseProject\LevelTwo\Exceptions\UserNotFoundException;
 use CourseProject\LevelTwo\Repositories\PostRepository\SqlitePostRepository;
 use PHPUnit\Framework\TestCase;
 
-class ArticleRepoTest extends TestCase
+class PostRepoTest extends TestCase
 {
     public function testItSavesArticleToDatabase():void{
         $connectionMock = $this->createStub(PDO::class);
@@ -35,7 +35,7 @@ class ArticleRepoTest extends TestCase
 
     /**
      * @throws \CourseProject\LevelTwo\Exceptions\InvalidArgumentException
-     * @throws \CourseProject\LevelTwo\Exceptions\UserNotFoundException
+     * @throws UserNotFoundException
      */
     public function testExceptionWhenUserNotFound(){
         $connectionMock = $this->createStub(PDO::class);
@@ -89,6 +89,10 @@ class ArticleRepoTest extends TestCase
     }
 
 
+    /**
+     * @throws \CourseProject\LevelTwo\Exceptions\InvalidArgumentException
+     * @throws UserNotFoundException
+     */
     public function testGetArticleByAuthor(){
         $connectionMock = $this->createStub(PDO::class);
         $statementMock = $this->createStub(PDOStatement::class);

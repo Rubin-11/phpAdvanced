@@ -2,6 +2,8 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 $const = new PDO('sqlite:' . __DIR__ . '/blog_course_project.sqlite');
+//print($const);
+//die();
 
 use CourseProject\LevelTwo\Common\Arguments;
 use CourseProject\LevelTwo\Blog\User\CreateUserCommand;

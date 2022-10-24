@@ -2,9 +2,9 @@
 
 namespace CourseProject\LevelTwo\Exceptions;
 
-use Exception;
+use Rubin\LevelTwo\Blog\Exceptions\AppException;
 
-class PostNotFoundException extends Exception
+class PostNotFoundException extends AppException
 {
-    protected $message = 'Post not found';
+
 }
