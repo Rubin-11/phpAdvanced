@@ -2,9 +2,9 @@
 
 namespace CourseProject\LevelTwo\Repositories\UsersRepository;
 
+use CourseProject\LevelTwo\Common\UUID;
 use CourseProject\LevelTwo\Exceptions\UserNotFoundException;
-use CourseProject\LevelTwo\User;
-use CourseProject\LevelTwo\UUID;
+use CourseProject\LevelTwo\Blog\User\User;
 
 class UserRepository implements UserRepositoryInterface
 {

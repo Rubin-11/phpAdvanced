@@ -5,6 +5,11 @@
             "CourseProject\\LevelTwo\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "CourseProject\\LevelTwo\\UnitTests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "Sergey Misharin",
@@ -12,7 +17,10 @@
         }
     ],
     "require": {
-        "symfony/polyfill-uuid": "^1.26"
+        "symfony/polyfill-uuid": "^1.26",
+        "ext-pdo": "*",
+        "ext-mbstring": "*",
+        "psr/container": "^2.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.20",

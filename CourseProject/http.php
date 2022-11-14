@@ -1,103 +1,93 @@
 <?php
 
 use CourseProject\LevelTwo\Exceptions\AppException;
+use CourseProject\LevelTwo\Http\Action\CommentAction\CreateComment;
 use CourseProject\LevelTwo\Http\Action\CommentAction\FindCommentById;
-use CourseProject\LevelTwo\Http\Action\PostAction\FindPostById;
+use CourseProject\LevelTwo\Http\Action\LikeAction\CreateLike;
+use CourseProject\LevelTwo\Http\Action\LikeAction\FindLikesByArticle;
 use CourseProject\LevelTwo\Http\Action\PostAction\CreatePost;
 use CourseProject\LevelTwo\Http\Action\PostAction\DeletePostById;
-
-use CourseProject\LevelTwo\Http\Action\CommentAction\CreateComment;
-
+use CourseProject\LevelTwo\Http\Action\PostAction\FindPostById;
 use CourseProject\LevelTwo\Http\Action\UserAction\CreateUser;
 use CourseProject\LevelTwo\Http\Action\UserAction\FindByUsername;
 use CourseProject\LevelTwo\Http\ErrorResponse;
 use CourseProject\LevelTwo\Http\Request;
-use CourseProject\LevelTwo\Repositories\PostRepository\SqlitePostRepository;
-use CourseProject\LevelTwo\Repositories\CommentRepository\SqliteCommentRepository;
-use CourseProject\LevelTwo\Repositories\UsersRepository\SqliteUserRepository;
-use CourseProject\LevelTwo\Exceptions\HttpException;
 
-echo "Hello";
+http_response_code(200);
 
-require_once __DIR__ . "/vendor/autoload.php";
-$const = new PDO('sqlite:' . __DIR__ . '/blog_course_project.sqlite');
+// Подключаем файл bootstrap.php
+// и получаем настроенный контейнер
+$container = require __DIR__ . '/bootstrap.php';
 
-$request = new Request($_GET, $_SERVER, file_get_contents("php://input"));
+$request = new Request(
+    $_GET,
+    $_SERVER,
+    file_get_contents('php://input'));
 
 try {
     $path = $request->path();
-} catch (HttpException $exception) {
+} catch (\CourseProject\LevelTwo\Exceptions\HttpException $exception) {
     (new ErrorResponse($exception->getMessage()))->send();
     return;
 }
 
 try {
-    //  Пытаемся получить HTTP - метод запроса
+    // Пытаемся получить HTTP-метод запроса
     $method = $request->method();
-}   catch (HttpException $e) {
-    //  Возвращаем неудачный ответ,
-    //  если по какой-то причине
-    //  не может получить метод
-    (new ErrorResponse($e->getMessage()))->send();
+
+
+
+
+
+} catch (\CourseProject\LevelTwo\Exceptions\HttpException $exception) {
+    // Возвращаем неудачный ответ,
+    // если по какой-то причине
+    // не можем получить метод
+    (new ErrorResponse($exception->getMessage()))->send();
     return;
 }
 
-$router = [
-    //  Добавили еще один уровень вложенности
-    //  для отделения маршрутов,
-    //  применяемых к запросам с разными методами
+$routes = [
     'GET' => [
-        '/show/user' => new FindByUsername(
-            new SqliteUserRepository($const)
-        ),
-        '/show/post' => new FindPostById(
-            new SqlitePostRepository($const)
-        ),
-        '/show/comment' => new FindCommentById(
-            new SqliteCommentRepository($const)
-        ),
+        '/show/user' => FindByUsername::class,
+        '/show/posts' => FindPostById::class,
+        '/show/comment' => FindCommentById::class,
+        '/show/postLikes' => FindLikesByArticle::class,
     ],
-
     'POST' => [
-        //  Добавили новый маршрут
-        '/create/user' => new CreateUser(
-            new SqliteUserRepository($const)
-        ),
-        '/create/post' => new CreatePost(
-            new SqlitePostRepository($const)
-        ),
-        '/create/comment' => new CreateComment(
-            new SqliteCommentRepository($const)
-        )
+        '/create/user' => CreateUser::class,
+        '/create/posts' => CreatePost::class,
+        '/create/comment' => CreateComment::class,
+        '/create/like' => CreateLike::class,
     ],
-
     'DELETE' => [
-        '/delete/post' => new DeletePostById(
-            new SqlitePostRepository($const)
-        )
+        '/delete/article' => DeletePostById::class
     ]
 ];
 
-//  Если у нас нет маршоутов для метода запроса -
-//  возвращаем неуспешный ответ
-if (!array_key_exists($method, $router)) {
-    (new ErrorResponse('Net hod Not found'))->send();
+// Если у нас нет маршрутов для метода запроса -
+// возвращаем неуспешный ответ
+if (!array_key_exists($method, $routes)) {
+    (new ErrorResponse("Method not found: $method $path"))->send();
     return;
 }
 
-//  Ищем маршрут среди маршрутов для этого метода
-if (!array_key_exists($path, $router[$method])) {
-    (new ErrorResponse('Router Not found'))->send();
+// Ищем маршрут среди маршрутов для этого метода
+if (!array_key_exists($path, $routes[$method])) {
+    (new ErrorResponse("Route not found: $method $path"))->send();
     return;
 }
 
-//  Выбираем действие по методу и пути
-$action = $router[$method][$path];
+// Получаем имя класса действия для маршрута
+$actionClassName = $routes[$method][$path];
+
+// С помощью контейнера
+// создаём объект нужного действия
+$action = $container->get($actionClassName);
 
 try {
     $response = $action->handle($request);
 } catch (AppException $e) {
     (new ErrorResponse($e->getMessage()))->send();
 }
-
 $response->send();

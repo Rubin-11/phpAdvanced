@@ -15,7 +15,6 @@ use JsonException;
 use CourseProject\LevelTwo\Repositories\UsersRepository\UserRepositoryInterface;
 use PHPUnit\Framework\TestCase;
 
-
 class FindByUsernameActionTest extends TestCase
 {
     // Запускаем тест в отдельном процессе

@@ -2,7 +2,6 @@
 
 namespace CourseProject\LevelTwo\Http;
 
-use JsonException;
 
 abstract class Response
 {
@@ -12,7 +11,7 @@ abstract class Response
     //  Метод для отправки ответа
 
     /**
-     * @throws JsonException
+     * @throws \JsonException
      */
     public function send(): void
     {

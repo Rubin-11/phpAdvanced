@@ -26,7 +26,7 @@ class FindByUsername implements ActionInterface
     {
         try {
             //  Пытаемся получить искомое имя пользователя из запроса
-            $username = $request->query('user_name');
+            $username = $request->query('username');
         } catch (HttpException $e) {
             //  Если в запросе нет параметра username -
             //  возвращаем неуспешный ответ,

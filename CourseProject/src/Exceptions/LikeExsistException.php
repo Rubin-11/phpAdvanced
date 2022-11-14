@@ -2,7 +2,7 @@
 
 namespace CourseProject\LevelTwo\Exceptions;
 
-class PostNotFoundException extends AppException
+class LikeExsistException extends AppException
 {
 
 }

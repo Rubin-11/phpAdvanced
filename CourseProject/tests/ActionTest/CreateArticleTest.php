@@ -106,7 +106,7 @@ class CreateArticleTest extends TestCase
      */
     public function testItReturnsErrorResponseIfGetBadUuid()
     {
-        $request = new Request([], [], '{"authorId": "12"}');
+        $request = new Request([], [], '{"author_id": "12"}');
         $usersRepository = $this->usersRepository([]);
         $postRepository = $this->postRepository([]);
 
@@ -128,7 +128,7 @@ class CreateArticleTest extends TestCase
     public function testItReturnsErrorResponseIfUserNotFound()
     {
         $request = new Request([], [], '{
-            "authorId": "8ddd0fbc-a047-453d-b1f3-d587933270c4",
+            "author_id": "8ddd0fbc-a047-453d-b1f3-d587933270c4",
             "title": "test_for_delete",
             "text": "Dont delete me pls"}'
         );
@@ -159,7 +159,7 @@ class CreateArticleTest extends TestCase
     public function testItReturnsErrorResponseIfNotAllParamsEmpty()
     {
         $request = new Request([], [], '{
-            "authorId": "8ddd0fbc-a047-453d-b1f3-d587933270c4",
+            "author_id": "8ddd0fbc-a047-453d-b1f3-d587933270c4",
             "title": "test_for_delete",
             "text": ""}'
         );
@@ -191,7 +191,7 @@ class CreateArticleTest extends TestCase
     public function testItReturnsErrorResponseIfNotAllParams()
     {
         $request = new Request([], [], '{
-            "authorId": "8ddd0fbc-a047-453d-b1f3-d587933270c4",
+            "author_id": "8ddd0fbc-a047-453d-b1f3-d587933270c4",
             "title": "test_for_delete"}'
         );
         $usersRepository = $this->usersRepository(
@@ -221,7 +221,7 @@ class CreateArticleTest extends TestCase
     public function testItReturnsSuccessfulResponse()
     {
         $request = new Request([], [], '{
-            "authorId": "8ddd0fbc-a047-453d-b1f3-d587933270c4",
+            "author_id": "8ddd0fbc-a047-453d-b1f3-d587933270c4",
             "title": "test_for_delete",
             "text": "Dont delete me pls"}'
         );

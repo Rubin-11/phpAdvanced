@@ -20,7 +20,7 @@ class CreatePost implements ActionInterface
 {
     public function __construct(
         private readonly PostRepositoryInterface $postRepository,
-//        private readonly ?UserRepositoryInterface $userRepository = null
+        private readonly ?UserRepositoryInterface $userRepository = null
     ){}
 
     public function handle(Request $request): Response
@@ -35,11 +35,11 @@ class CreatePost implements ActionInterface
             return new ErrorResponse($e->getMessage());
         }
 
-//        try {
-//            $this->userRepository->get($authorId);
-//        } catch (UserNotFoundException $e) {
-//            return new ErrorResponse($e->getMessage());
-//        }
+        try {
+            $this->userRepository->get($authorId);
+        } catch (UserNotFoundException $e) {
+            return new ErrorResponse($e->getMessage());
+        }
 
         $this->postRepository->save(new Post(
             $id,

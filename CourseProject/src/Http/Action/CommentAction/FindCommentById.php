@@ -21,10 +21,6 @@ class FindCommentById implements ActionInterface
     {
     }
 
-    /**
-     * @throws \Rubin\LevelTwo\Blog\Exceptions\HttpException
-     * @throws InvalidArgumentException
-     */
     public function handle(Request $request): Response
     {
         try {
