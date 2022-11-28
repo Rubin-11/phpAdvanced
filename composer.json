@@ -1,0 +1,19 @@
+{
+    "name": "gb/php",
+    "autoload": {
+        "psr-4": {
+            "GB\\Php\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Sergey Misharin",
+            "email": "misharin_sergey-work@mail.ru"
+        }
+    ],
+    "require": {
+      "ext-http": "*",
+      "ext-mbstring": "*",
+      "ext-pdo": "*"
+    }
+}
