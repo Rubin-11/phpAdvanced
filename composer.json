@@ -1,8 +1,8 @@
 {
-    "name": "gb/php",
+    "name": "george/php",
     "autoload": {
         "psr-4": {
-            "GB\\Php\\": "src/"
+            "George\\Php\\": "src/"
         }
     },
     "authors": [
